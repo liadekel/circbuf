@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # add target
-add_library(circbuf SHARED circbuf.cpp)
+add_library(circbuf SHARED src/circbuf.cpp)
 
 target_include_directories(circbuf PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -25,7 +25,7 @@ install(EXPORT circbufConfig DESTINATION share/circbuf/cmake)
 export(TARGETS ${PROJECT_NAME} FILE circbufConfig.cmake)
 
 # add test executable
-add_executable(main main.cpp)
+add_executable(main src/main.cpp)
 target_link_libraries(main PRIVATE circbuf)
 install(TARGETS main
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
