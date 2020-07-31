@@ -10,6 +10,21 @@ template class circbuf<int>;
 
 int main(int argc, char *argv[])
 {
-    circbuf<int> c = circbuf<int>(0);
+    circbuf<int> c = circbuf<int>(4);
+    c.show();
+    c.put(1);
+    c.show();
+    c.put(2);
+    c.show();
+    c.show();
+    c.put(3);
+    c.show();
+    c.put(4);
+    c.show();
+    std::cout << "got:" << c.get() << std::endl;
+    c.show();
+    std::cout << "got:" << c.get() << std::endl;
+    c.show();
+    std::cout << "got:" << c.get() << std::endl;
     c.show();
 }

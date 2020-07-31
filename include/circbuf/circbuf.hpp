@@ -34,12 +34,17 @@ namespace circular_buffer
         void show(); // print nicely the current state
 
         /*
+         * check whether the buffer is full.
+         *
+         * @return bool indicating if the buffer is full (len 0).
+         */
+        bool full();
+        /*
          * check whether the buffer is empty.
          *
          * @return bool indicating if the buffer is empty (len 0).
          */
-        bool empty(); // print nicely the current state
-
+        bool empty();
         /*
          * get the current size of the buffer.
          *
@@ -50,9 +55,11 @@ namespace circular_buffer
         ~circbuf();
 
     private:
+        T *m_elements; // buffer elements array
         std::size_t m_size;
         std::size_t m_head; // size indicating the place of the first item
         std::size_t m_tail; // size indicating the place of the last item
+        std::size_t m_size_curr;
     };
 
 } // namespace circular_buffer
