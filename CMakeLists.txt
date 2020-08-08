@@ -15,10 +15,11 @@ target_include_directories(circbuf PUBLIC
   $<INSTALL_INTERFACE:include/>
 )
 
-set_target_properties(circbuf PROPERTIES PUBLIC_HEADER include/circbuf/circbuf.hpp)
+list(APPEND CIRCBUF_HEADERS include/circbuf/circbuf.hpp)
+install(FILES ${CIRCBUF_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/circbuf)
+
 install(TARGETS ${PROJECT_NAME}
         EXPORT circbufConfig
-        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/circbuf
         LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 install(EXPORT circbufConfig DESTINATION share/circbuf/cmake)

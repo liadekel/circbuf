@@ -1,11 +1,12 @@
 #include "circbuf/circbuf.hpp"
+#include "circbuf/safe_lock.hpp"
 
 using namespace circular_buffer;
 
 template <typename T>
 circbuf<T>::circbuf(size_t size)
-    : m_size{size}, m_elements{new T[size]},
-      m_head{0}, m_tail{0}, m_size_curr{0}
+    : m_elements{new T[size]},
+      m_size{size}, m_head{0}, m_tail{0}, m_size_curr{0}
 {
     std::cout << "Initialized circbuf!";
     std::cout << " size=" << size << std::endl;
@@ -14,6 +15,8 @@ circbuf<T>::circbuf(size_t size)
 template <typename T>
 T circbuf<T>::get()
 {
+    safe_lock lock(m_mutex);
+
     if (!empty())
     {
         // since buf is not empty, we read
@@ -32,6 +35,8 @@ T circbuf<T>::get()
 template <typename T>
 void circbuf<T>::put(T item)
 {
+    safe_lock lock(m_mutex);
+
     if (!full())
     {
         // since buf is not full, we put

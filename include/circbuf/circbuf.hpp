@@ -1,6 +1,7 @@
 #ifndef CIRCBUF_H
 #define CIRCBUF_H
 
+#include <mutex>
 #include <iostream>
 
 namespace circular_buffer
@@ -25,6 +26,22 @@ namespace circular_buffer
          * @return void.
          */
         void put(T item);
+
+        /*
+         * put the given data buffer as last in the buffer.
+         *
+         * @param items - items of type T to write into the buffer.
+         * @return void.
+         */
+        std::size_t write(T *items, std::size_t n);
+
+        /*
+         * put the given item as last in the buffer.
+         *
+         * @param item - item of type T to put.
+         * @return void.
+         */
+        std::size_t read(T *items, std::size_t n);
 
         /*
          * print the current state of the buffer.
@@ -55,7 +72,8 @@ namespace circular_buffer
         ~circbuf();
 
     private:
-        T *m_elements; // buffer elements array
+        T *m_elements;
+        std::mutex m_mutex;
         std::size_t m_size;
         std::size_t m_head; // size indicating the place of the first item
         std::size_t m_tail; // size indicating the place of the last item
